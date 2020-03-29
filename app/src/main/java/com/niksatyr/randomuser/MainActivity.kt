@@ -3,13 +3,19 @@ package com.niksatyr.randomuser
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.niksatyr.randomuser.adapter.UserAdapter
 import com.niksatyr.randomuser.api.RandomUserApi
 import com.niksatyr.randomuser.repo.RemoteUserRepository
 import com.niksatyr.randomuser.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var userAdapter: UserAdapter
 
     private val viewModel: MainViewModel by viewModels {
         val retrofit = Retrofit.Builder()
@@ -24,5 +30,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupRecyclerView()
+        viewModel.loadUsers()
+    }
+
+    private fun setupRecyclerView() {
+        userAdapter = UserAdapter(this@MainActivity, Collections.emptyList())
+        rvUsers.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = userAdapter
+        }
+        viewModel.usersLiveData.observe(this, androidx.lifecycle.Observer {
+            userAdapter.setUsers(it)
+        })
     }
 }
