@@ -8,6 +8,6 @@ import retrofit2.http.Query
 interface RandomUserApi {
 
     @GET("/")
-    fun getUsers(@Query("results") count: Int): Response<List<User>>
+    suspend fun getUsers(@Query("results") count: Int): Response<List<User>>
 
 }
