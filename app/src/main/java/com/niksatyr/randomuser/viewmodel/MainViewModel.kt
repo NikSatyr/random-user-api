@@ -5,17 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.niksatyr.randomuser.dto.User
 import com.niksatyr.randomuser.repo.UserRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.niksatyr.randomuser.util.Failed
+import com.niksatyr.randomuser.util.Loading
+import com.niksatyr.randomuser.util.State
+import kotlinx.coroutines.*
 
 class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     val usersLiveData = MutableLiveData<List<User>>()
 
+    val state = MutableLiveData<State>(Loading)
+
     fun loadUsers(count: Int = DEFAULT_USERS_COUNT) {
-        CoroutineScope(Dispatchers.IO).launch {
-            usersLiveData.postValue(userRepository.getUsers(count))
+        scope.launch(exceptionHandler) {
+            launch(Dispatchers.IO) {
+                usersLiveData.postValue(userRepository.getUsers(count))
+            }
         }
     }
 
@@ -27,6 +32,12 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     companion object {
         private const val DEFAULT_USERS_COUNT = 20
+    }
+
+    private val scope = CoroutineScope(Job())
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        state.postValue(Failed(throwable.message))
     }
 
 }
