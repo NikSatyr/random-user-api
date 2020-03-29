@@ -1,12 +1,30 @@
 package com.niksatyr.randomuser.dto
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class User(
-    var name: String,
-    var surname: String,
-    @Json(name = "date") var dateOfBirth: Date,
-    var email: String,
-    var photoUrl: String
-)
+    val name: Name,
+    @SerializedName("dob") val dateOfBirth: DateOfBirth,
+    @SerializedName("picture") val photoUrls: PhotoUrls,
+    val email: String,
+    val phone: String
+) {
+
+    data class Name(
+        val title: String,
+        val first: String,
+        val last: String
+    )
+
+    data class DateOfBirth(
+        val date: Date,
+        val age: Int
+    )
+
+    data class PhotoUrls(
+        val large: String,
+        val medium: String,
+        val thumbnail: String
+    )
+}
