@@ -35,7 +35,7 @@ class UserAdapter(
         holder.apply {
             txtName.text = fullName
             txtBirthday.text = dateFormat.format(user.dateOfBirth.date)
-            Picasso.get().load(user.photoUrls.thumbnail).into(thumbnailPhoto)
+            Picasso.get().load(user.photoUrls.large).into(thumbnailPhoto)
         }
     }
 
@@ -47,6 +47,6 @@ class UserAdapter(
 
     private val inflater = LayoutInflater.from(context)
 
-    private val dateFormat = SimpleDateFormat("dd:MM:yyyy", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
 }
