@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.niksatyr.randomuser.api.RandomUserApi
 import com.niksatyr.randomuser.api.UsersResponse
-import com.niksatyr.randomuser.dto.User
+import com.niksatyr.randomuser.dto.UserDto
 import com.niksatyr.randomuser.repo.RemoteUserRepository
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
@@ -28,12 +28,13 @@ class RemoteUserRepositoryTest {
 
     private lateinit var mockApi: RandomUserApi
 
-    private val mockUser = User(
-        User.Name("Mr", "John", "Doe"),
-        User.DateOfBirth(Date(), 29),
-        User.PhotoUrls("abc.com", "abc.com", "abc.com"),
+    private val mockUser = UserDto(
+        UserDto.Name("Mr", "John", "Doe"),
+        UserDto.DateOfBirth(Date(), 29),
+        UserDto.PhotoUrls("abc.com", "abc.com", "abc.com"),
         "aaa@a.com",
-        "+38065653214"
+        "+38065653214",
+        UserDto.Location("LA", "CA", "Sunset Bvd", "23402")
     )
 
     @Before
