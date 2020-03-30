@@ -9,7 +9,6 @@ import com.niksatyr.randomuser.dto.User
 import com.niksatyr.randomuser.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
-import kotlinx.android.synthetic.main.item_user.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,7 +34,7 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details) {
         Picasso.get().load(user.photoUrls.large).into(imgDetailsPhoto)
         val fullName = "${user.name.title} ${user.name.first} ${user.name.last}"
         txtDetailsName.text = fullName
-        txtBirthday.text = dateFormat.format(user.dateOfBirth.date)
+        txtDetailsBirthday.text = dateFormat.format(user.dateOfBirth.date)
         txtDetailsEmail.text = user.email
         txtDetailsPhone.text = user.phone
     }
