@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/settingsContainer"
-        android:name="com.niksatyr.randomuser.fragment.SettingsFragment"
+        android:name="com.niksatyr.randomuser.ui.fragment.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

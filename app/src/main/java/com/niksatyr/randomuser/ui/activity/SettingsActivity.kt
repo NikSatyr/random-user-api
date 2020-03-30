@@ -1,4 +1,4 @@
-package com.niksatyr.randomuser.activity
+package com.niksatyr.randomuser.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import com.niksatyr.randomuser.R

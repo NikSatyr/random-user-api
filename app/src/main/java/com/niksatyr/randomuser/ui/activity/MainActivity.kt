@@ -1,4 +1,4 @@
-package com.niksatyr.randomuser.activity
+package com.niksatyr.randomuser.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
