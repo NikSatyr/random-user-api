@@ -17,6 +17,7 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     val state = MutableLiveData<State>(Loading)
 
+    // TODO load count from settings
     fun loadUsers(count: Int = DEFAULT_USERS_COUNT) {
         state.value = Loading
         val scope = CoroutineScope(Job())

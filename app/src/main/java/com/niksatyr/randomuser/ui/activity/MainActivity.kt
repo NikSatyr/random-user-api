@@ -2,6 +2,8 @@ package com.niksatyr.randomuser.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +51,19 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menuSettings -> startActivity(Intent(this, SettingsActivity::class.java))
+            R.id.menuRefresh -> viewModel.loadUsers()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupRecyclerView() {
         userAdapter = UserAdapter(this@MainActivity, object : UserAdapter.OnUserSelectedListener {
                 override fun onUserSelected(user: User) {
@@ -68,7 +83,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         when (state) {
             is Loading -> {
                 progressBar.visibility = View.VISIBLE
-                arrayOf(txtError, btnRetry).forEach {
+                arrayOf(txtError, btnRetry, rvUsers).forEach {
                     it.visibility = View.INVISIBLE
                 }
             }
@@ -76,6 +91,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 arrayOf(progressBar, txtError, btnRetry).forEach {
                     it.visibility = View.INVISIBLE
                 }
+                rvUsers.visibility = View.VISIBLE
             }
             is Failed -> {
                 progressBar.visibility = View.INVISIBLE
