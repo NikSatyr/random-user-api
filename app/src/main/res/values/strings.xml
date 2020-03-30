@@ -3,4 +3,6 @@
     <string name="retry">Retry</string>
     <string name="users_loading_error">Failed to load users.\nWould you like to retry?</string>
     <string name="details">Details</string>
+    <string name="users_count">Users count</string>
+    <string name="night_mode">Night mode</string>
 </resources>
