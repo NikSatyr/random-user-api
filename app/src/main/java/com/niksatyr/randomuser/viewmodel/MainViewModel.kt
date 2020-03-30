@@ -40,7 +40,6 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     companion object {
         private const val DEFAULT_USERS_COUNT = 20
-
     }
 
 }
