@@ -3,7 +3,7 @@ package com.niksatyr.randomuser.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.niksatyr.randomuser.dto.User
+import com.niksatyr.randomuser.model.User
 import com.niksatyr.randomuser.repo.UserRepository
 import com.niksatyr.randomuser.util.Failed
 import com.niksatyr.randomuser.util.Loaded

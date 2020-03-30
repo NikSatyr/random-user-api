@@ -3,8 +3,9 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.niksatyr.randomuser.api.RandomUserApi
-import com.niksatyr.randomuser.api.UsersResponse
 import com.niksatyr.randomuser.dto.UserDto
+import com.niksatyr.randomuser.dto.UsersResponseDto
+import com.niksatyr.randomuser.model.User
 import com.niksatyr.randomuser.repo.RemoteUserRepository
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +47,11 @@ class RemoteUserRepositoryTest {
             .build()
         mockApi = retrofit.create(RandomUserApi::class.java)
         mockApi = mock {
-            onBlocking { getUsers(any()) } doReturn Response.success(UsersResponse(listOf(mockUser)))
+            onBlocking { getUsers(any()) } doReturn Response.success(
+                UsersResponseDto(
+                    listOf(mockUser)
+                )
+            )
         }
         remoteUserRepository = RemoteUserRepository(mockApi)
     }
@@ -60,7 +65,8 @@ class RemoteUserRepositoryTest {
     @Test
     fun test_getUsers() = testScope.runBlockingTest {
         val users = remoteUserRepository.getUsers(1)
-        assertEquals(listOf(mockUser), users)
+        val expected: List<User> = listOf(mockUser).map { User.Factory.create(it) }
+        assertEquals(expected, users)
     }
 
     @Test(expected = IllegalArgumentException::class)

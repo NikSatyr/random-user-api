@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.niksatyr.randomuser.R
-import com.niksatyr.randomuser.dto.User
+import com.niksatyr.randomuser.model.User
 import com.niksatyr.randomuser.viewmodel.DetailsViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
@@ -45,12 +45,13 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details) {
     private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
     private fun displayUserDetails(user: User) {
-        Picasso.get().load(user.photoUrls.large).into(imgDetailsPhoto)
-        val fullName = "${user.name.title} ${user.name.first} ${user.name.last}"
-        txtDetailsName.text = fullName
-        txtDetailsBirthday.text = dateFormat.format(user.dateOfBirth.date)
+        val fullBirthdayInfo = "${dateFormat.format(user.birthday)} (${user.age})"
+        Picasso.get().load(user.largePhotoUrl).into(imgDetailsPhoto)
+        txtDetailsName.text = user.fullName
+        txtDetailsBirthday.text = fullBirthdayInfo
         txtDetailsEmail.text = user.email
         txtDetailsPhone.text = user.phone
+        txtDetailsAddress.text = user.address
     }
 
     companion object {

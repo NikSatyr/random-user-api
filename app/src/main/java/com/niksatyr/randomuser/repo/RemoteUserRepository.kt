@@ -1,7 +1,7 @@
 package com.niksatyr.randomuser.repo
 
 import com.niksatyr.randomuser.api.RandomUserApi
-import com.niksatyr.randomuser.dto.User
+import com.niksatyr.randomuser.model.User
 
 class RemoteUserRepository(private val userApi: RandomUserApi) : UserRepository {
 
@@ -11,7 +11,9 @@ class RemoteUserRepository(private val userApi: RandomUserApi) : UserRepository 
         }
         val response = userApi.getUsers(count)
         if (response.isSuccessful) {
-            return response.body()?.users ?: throw IllegalStateException("No users were fetched")
+            val userDtos =
+                response.body()?.users ?: throw IllegalStateException("No users were fetched")
+            return userDtos.map { User.Factory.create(it) }
         } else {
             throw IllegalStateException("An error occurred while executing query")
         }

@@ -33,7 +33,8 @@ data class User(
                     email = userDto.email,
                     phone = userDto.phone,
                     address = "${userDto.location.city}, ${userDto.location.state}, " +
-                            "${userDto.location.street}, ${userDto.location.postcode}"
+                            "${userDto.location.street.number} " +
+                            "${userDto.location.street.name}, ${userDto.location.postcode}"
                 )
             }
 

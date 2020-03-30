@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.niksatyr.randomuser.R
 import com.niksatyr.randomuser.adapter.UserAdapter
 import com.niksatyr.randomuser.api.RandomUserApi
-import com.niksatyr.randomuser.dto.User
+import com.niksatyr.randomuser.model.User
 import com.niksatyr.randomuser.repo.RemoteUserRepository
 import com.niksatyr.randomuser.util.Failed
 import com.niksatyr.randomuser.util.Loaded

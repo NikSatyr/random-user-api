@@ -2,7 +2,7 @@ package com.niksatyr.randomuser.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.niksatyr.randomuser.dto.User
+import com.niksatyr.randomuser.model.User
 
 class DetailsViewModel : ViewModel() {
 

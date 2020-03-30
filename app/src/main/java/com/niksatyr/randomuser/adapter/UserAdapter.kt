@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.niksatyr.randomuser.R
-import com.niksatyr.randomuser.dto.User
+import com.niksatyr.randomuser.model.User
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
@@ -33,11 +33,11 @@ class UserAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = users[position]
-        val fullName = "${user.name.title} ${user.name.first} ${user.name.last}"
+        val fullBirthdayInfo = "${dateFormat.format(user.birthday)} (${user.age})"
         holder.apply {
-            Picasso.get().load(user.photoUrls.large).into(thumbnailPhoto)
-            txtName.text = fullName
-            txtBirthday.text = dateFormat.format(user.dateOfBirth.date)
+            Picasso.get().load(user.largePhotoUrl).into(thumbnailPhoto)
+            txtName.text = user.fullName
+            txtBirthday.text = fullBirthdayInfo
             cardView.setOnClickListener {
                 onUserSelectedListener?.onUserSelected(users[position])
             }
