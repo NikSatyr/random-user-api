@@ -11,7 +11,8 @@ data class User(
     @SerializedName("dob") val dateOfBirth: DateOfBirth,
     @SerializedName("picture") val photoUrls: PhotoUrls,
     val email: String,
-    val phone: String
+    val phone: String,
+    val location: Location
 ) : Parcelable {
 
     @Parcelize
@@ -32,5 +33,13 @@ data class User(
         val large: String,
         val medium: String,
         val thumbnail: String
+    ) : Parcelable
+
+    @Parcelize
+    data class Location(
+        val city: String,
+        val state: String,
+        val street: String,
+        val postcode: String
     ) : Parcelable
 }
