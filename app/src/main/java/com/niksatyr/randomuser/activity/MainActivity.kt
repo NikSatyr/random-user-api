@@ -39,8 +39,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         viewModel.state.observe(this, androidx.lifecycle.Observer {
             updateState(it)
         })
-        viewModel.loadUsers()
         btnRetry.setOnClickListener {
+            viewModel.loadUsers()
+        }
+        // This is to avoid redundant loading on screen rotation
+        if (savedInstanceState == null) {
             viewModel.loadUsers()
         }
     }
