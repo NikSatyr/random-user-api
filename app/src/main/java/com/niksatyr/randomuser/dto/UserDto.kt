@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class UserDto(
-    val location: Location,
     val name: Name,
     @SerializedName("dob") val dateOfBirth: DateOfBirth,
     @SerializedName("picture") val photoUrls: PhotoUrls,
     val email: String,
-    val phone: String
+    val phone: String,
+    val location: Location
 ) {
 
     data class Name(

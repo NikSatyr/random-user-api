@@ -35,7 +35,7 @@ class RemoteUserRepositoryTest {
         UserDto.PhotoUrls("abc.com", "abc.com", "abc.com"),
         "aaa@a.com",
         "+38065653214",
-        UserDto.Location("LA", "CA", "Sunset Bvd", "23402")
+        UserDto.Location(UserDto.Street(1, "Sunset Bvd"), "LA", "CA", "23402")
     )
 
     @Before
