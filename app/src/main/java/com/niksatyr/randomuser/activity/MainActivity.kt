@@ -1,10 +1,11 @@
-package com.niksatyr.randomuser
+package com.niksatyr.randomuser.activity
 
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.niksatyr.randomuser.R
 import com.niksatyr.randomuser.adapter.UserAdapter
 import com.niksatyr.randomuser.api.RandomUserApi
 import com.niksatyr.randomuser.repo.RemoteUserRepository
