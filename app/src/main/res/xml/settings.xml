@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditTextPreference
         android:defaultValue="20"
         android:key="pref_users_count"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="@string/users_count" />
+        android:title="@string/users_count"
+        app:iconSpaceReserved="false" />
 
     <SwitchPreference
         android:defaultValue="false"
         android:key="pref_night_mode"
-        android:title="@string/night_mode" />
+        android:title="@string/night_mode"
+        app:iconSpaceReserved="false"/>
 
 </PreferenceScreen>
