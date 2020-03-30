@@ -1,8 +1,11 @@
 package com.niksatyr.randomuser.model
 
+import android.os.Parcelable
 import com.niksatyr.randomuser.dto.UserDto
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+@Parcelize
 data class User(
     var fullName: String,
     var birthday: Date,
@@ -13,7 +16,7 @@ data class User(
     var email: String,
     var phone: String,
     var address: String
-) {
+) : Parcelable {
 
     class Factory {
 
