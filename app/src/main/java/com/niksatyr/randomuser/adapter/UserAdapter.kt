@@ -17,7 +17,7 @@ import java.util.*
 class UserAdapter(
     context: Context,
     var onUserSelectedListener: OnUserSelectedListener? = null,
-    private var users: List<User>
+    private var users: List<User> = Collections.emptyList()
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     fun setUsers(users: List<User>) {

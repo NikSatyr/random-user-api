@@ -1,5 +1,6 @@
 package com.niksatyr.randomuser.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.niksatyr.randomuser.R
 import com.niksatyr.randomuser.adapter.UserAdapter
 import com.niksatyr.randomuser.api.RandomUserApi
+import com.niksatyr.randomuser.dto.User
 import com.niksatyr.randomuser.repo.RemoteUserRepository
 import com.niksatyr.randomuser.util.Failed
 import com.niksatyr.randomuser.util.Loaded
@@ -17,7 +19,6 @@ import com.niksatyr.randomuser.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         setupRecyclerView()
         viewModel.state.observe(this, androidx.lifecycle.Observer {
-            updateState(it)
+            displayState(it)
         })
         btnRetry.setOnClickListener {
             viewModel.loadUsers()
@@ -49,7 +50,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun setupRecyclerView() {
-        userAdapter = UserAdapter(this@MainActivity, Collections.emptyList())
+        userAdapter = UserAdapter(this@MainActivity, object : UserAdapter.OnUserSelectedListener {
+                override fun onUserSelected(user: User) {
+                    openUserDetails(user)
+                }
+            })
         rvUsers.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = userAdapter
@@ -59,7 +64,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         })
     }
 
-    private fun updateState(state: State) {
+    private fun displayState(state: State) {
         when (state) {
             is Loading -> {
                 progressBar.visibility = View.VISIBLE
@@ -78,6 +83,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 btnRetry.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun openUserDetails(user: User) {
+        val intent = Intent(this, DetailsActivity::class.java)
+            .putExtra(DetailsActivity.KEY_USER, user)
+        startActivity(intent)
     }
 
 }
