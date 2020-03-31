@@ -5,6 +5,9 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import com.niksatyr.randomuser.R
 
+/**
+ * This activity provides handy back navigation arrow in the toolbar
+ */
 abstract class ChildActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
