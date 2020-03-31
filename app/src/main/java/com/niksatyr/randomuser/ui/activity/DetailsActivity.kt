@@ -2,7 +2,6 @@ package com.niksatyr.randomuser.ui.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.niksatyr.randomuser.R
 import com.niksatyr.randomuser.model.User
@@ -12,14 +11,10 @@ import kotlinx.android.synthetic.main.activity_details.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DetailsActivity : AppCompatActivity(R.layout.activity_details) {
+class DetailsActivity : ChildActivity(R.layout.activity_details) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
         viewModel.user.observe(this, Observer {
             displayUserDetails(it)
         })
@@ -28,16 +23,6 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details) {
                 ?: throw IllegalArgumentException("This activity requires a user object to be passed")
             viewModel.setUser(user)
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish() // We won't need this activity, hence may be killed
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        finish() // We won't need this activity, hence may be killed
-        return super.onSupportNavigateUp()
     }
 
     private val viewModel: DetailsViewModel by viewModels()
