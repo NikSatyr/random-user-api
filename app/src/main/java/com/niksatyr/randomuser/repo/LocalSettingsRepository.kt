@@ -10,7 +10,8 @@ class LocalSettingsRepository(context: Context) : SettingsRepository {
     }
 
     override fun getFetchedUsersCount(): Int {
-        return preferences.getInt(PREFERENCE_FETCHED_USERS_COUNT_KEY, DEFAULT_USERS_COUNT)
+        return preferences.getString(PREFERENCE_FETCHED_USERS_COUNT_KEY, DEFAULT_USERS_COUNT)?.toInt()
+            ?: throw IllegalStateException("Failed to load users count from preferences")
     }
 
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -20,7 +21,7 @@ class LocalSettingsRepository(context: Context) : SettingsRepository {
         private const val PREFERENCE_FETCHED_USERS_COUNT_KEY = "pref_users_count"
 
         private const val DEFAULT_NIGHT_MODE = false
-        private const val DEFAULT_USERS_COUNT = 20
+        private const val DEFAULT_USERS_COUNT = "20"
     }
 
 }

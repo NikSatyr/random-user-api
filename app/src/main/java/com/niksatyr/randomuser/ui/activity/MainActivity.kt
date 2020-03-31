@@ -12,6 +12,7 @@ import com.niksatyr.randomuser.R
 import com.niksatyr.randomuser.adapter.UserAdapter
 import com.niksatyr.randomuser.api.RandomUserApi
 import com.niksatyr.randomuser.model.User
+import com.niksatyr.randomuser.repo.LocalSettingsRepository
 import com.niksatyr.randomuser.repo.RemoteUserRepository
 import com.niksatyr.randomuser.util.Failed
 import com.niksatyr.randomuser.util.Loaded
@@ -32,8 +33,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val userApi = retrofit.create(RandomUserApi::class.java)
-        val repo = RemoteUserRepository(userApi)
-        MainViewModel.Factory(repo)
+        val usersRepo = RemoteUserRepository(userApi)
+        MainViewModel.Factory(usersRepo, LocalSettingsRepository(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +44,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             displayState(it)
         })
         btnRetry.setOnClickListener {
-            viewModel.loadUsers()
+            loadUsers()
         }
         // This is to avoid redundant loading on screen rotation
         if (savedInstanceState == null) {
-            viewModel.loadUsers()
+            loadUsers()
         }
     }
 
@@ -59,9 +60,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menuSettings -> startActivity(Intent(this, SettingsActivity::class.java))
-            R.id.menuRefresh -> viewModel.loadUsers()
+            R.id.menuRefresh -> loadUsers()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun loadUsers() {
+        val count = viewModel.getFetchedUsersCount()
+        viewModel.loadUsers(count)
     }
 
     private fun setupRecyclerView() {
