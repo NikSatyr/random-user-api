@@ -7,6 +7,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.niksatyr.randomuser.R
 import com.niksatyr.randomuser.util.App
+import com.niksatyr.randomuser.util.MinMaxFilter
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -20,6 +21,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // This is to prevent non-digits input
         usersCountPreference.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
+            editText.filters = arrayOf(MinMaxFilter(1, 5000))
         }
 
         nightModePreference.setOnPreferenceChangeListener { _, newValue ->
