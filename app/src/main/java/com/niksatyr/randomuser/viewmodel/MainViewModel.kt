@@ -25,7 +25,7 @@ class MainViewModel(
         state.value = Loading
         val scope = CoroutineScope(Job())
         scope.launch(exceptionHandler) {
-            launch(Dispatchers.IO) {
+            launch(Dispatchers.IO) { // Inner scope needed to handle exceptions
                 usersLiveData.postValue(userRepository.getUsers(count))
                 state.postValue(Loaded)
             }
