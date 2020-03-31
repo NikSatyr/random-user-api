@@ -1,5 +1,7 @@
 package com.niksatyr.randomuser.ui.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -29,6 +31,15 @@ class DetailsActivity : ChildActivity(R.layout.activity_details) {
 
     private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
+    private fun setupListeners(user: User) {
+        txtDetailsEmail.setOnClickListener {
+            openEmailClient(user.email)
+        }
+        txtDetailsPhone.setOnClickListener {
+            openDialer(user.phone)
+        }
+    }
+
     private fun displayUserDetails(user: User) {
         val fullBirthdayInfo = "${dateFormat.format(user.birthday)} (${user.age})"
         Picasso.get().load(user.largePhotoUrl).into(imgDetailsPhoto)
@@ -37,6 +48,21 @@ class DetailsActivity : ChildActivity(R.layout.activity_details) {
         txtDetailsEmail.text = user.email
         txtDetailsPhone.text = user.phone
         txtDetailsAddress.text = user.address
+        setupListeners(user)
+    }
+
+    private fun openDialer(phone: String) {
+        val dialerIntent = Intent(Intent.ACTION_DIAL)
+        dialerIntent.data = Uri.parse("tel:$phone")
+        startActivity(dialerIntent)
+    }
+
+    private fun openEmailClient(email: String) {
+        val sendEmail = Intent(Intent.ACTION_SEND)
+        sendEmail.type = "text/plain"
+        // Array because of android requirements
+        sendEmail.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        startActivity(sendEmail)
     }
 
     companion object {
