@@ -20,8 +20,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         // This is to prevent non-digits input
         usersCountPreference.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER
-            editText.filters = arrayOf(RangeFilter(1, 5000))
+            editText.apply {
+                inputType = InputType.TYPE_CLASS_NUMBER
+                filters = arrayOf(RangeFilter(1, 5000))
+            }
         }
 
         nightModePreference.setOnPreferenceChangeListener { _, newValue ->
