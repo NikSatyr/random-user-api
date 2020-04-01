@@ -67,7 +67,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun loadUsers() {
         val count = viewModel.getFetchedUsersCount()
-        viewModel.loadUsers(count)
+        viewModel.apply {
+            clearLoadedUsers() // To avoid cached users on error on this request
+            loadUsers(count)
+        }
     }
 
     private fun setupRecyclerView() {

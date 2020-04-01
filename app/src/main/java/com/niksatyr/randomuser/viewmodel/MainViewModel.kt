@@ -11,6 +11,7 @@ import com.niksatyr.randomuser.util.Loaded
 import com.niksatyr.randomuser.util.Loading
 import com.niksatyr.randomuser.util.State
 import kotlinx.coroutines.*
+import java.util.*
 
 class MainViewModel(
     private val userRepository: UserRepository,
@@ -33,6 +34,10 @@ class MainViewModel(
     }
 
     fun getFetchedUsersCount() = settingsRepository.getFetchedUsersCount()
+
+    fun clearLoadedUsers() {
+        usersLiveData.value = Collections.emptyList()
+    }
 
     class Factory(
         private val userRepository: UserRepository,
