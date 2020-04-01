@@ -20,7 +20,7 @@ class MainViewModel(
 
     val usersLiveData = MutableLiveData<List<User>>()
 
-    val state = MutableLiveData<State>(Loading)
+    val state = MutableLiveData<State>()
 
     fun loadUsers(count: Int) {
         state.value = Loading
@@ -38,6 +38,8 @@ class MainViewModel(
     fun clearLoadedUsers() {
         usersLiveData.value = Collections.emptyList()
     }
+
+    fun isLoadingInProgress() = state.value == Loading
 
     class Factory(
         private val userRepository: UserRepository,

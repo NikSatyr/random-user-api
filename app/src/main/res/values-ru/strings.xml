@@ -7,4 +7,5 @@
     <string name="refresh">Обновить</string>
     <string name="settings">Настройки</string>
     <string name="users">Пользователи</string>
+    <string name="error_already_loading">Пользователи загружаются, пожалуйста, подождите</string>
 </resources>

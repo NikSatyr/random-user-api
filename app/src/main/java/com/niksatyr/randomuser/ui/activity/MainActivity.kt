@@ -14,10 +14,7 @@ import com.niksatyr.randomuser.api.RandomUserApi
 import com.niksatyr.randomuser.model.User
 import com.niksatyr.randomuser.repo.LocalSettingsRepository
 import com.niksatyr.randomuser.repo.RemoteUserRepository
-import com.niksatyr.randomuser.util.Failed
-import com.niksatyr.randomuser.util.Loaded
-import com.niksatyr.randomuser.util.Loading
-import com.niksatyr.randomuser.util.State
+import com.niksatyr.randomuser.util.*
 import com.niksatyr.randomuser.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
@@ -66,6 +63,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun loadUsers() {
+        if (viewModel.isLoadingInProgress()) {
+            createToast(R.string.error_already_loading).show()
+            return
+        }
         val count = viewModel.getFetchedUsersCount()
         viewModel.apply {
             clearLoadedUsers() // To avoid cached users on error on this request
