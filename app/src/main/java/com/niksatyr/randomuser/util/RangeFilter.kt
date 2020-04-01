@@ -3,7 +3,7 @@ package com.niksatyr.randomuser.util
 import android.text.InputFilter
 import android.text.Spanned
 
-class MinMaxFilter(val min: Int, val max: Int) : InputFilter {
+class RangeFilter(val min: Int, val max: Int) : InputFilter {
 
     override fun filter(
         source: CharSequence,
