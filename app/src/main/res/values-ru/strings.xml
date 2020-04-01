@@ -1,0 +1,10 @@
+<resources>
+    <string name="retry">Повторить</string>
+    <string name="users_loading_error">Не удалось загрузить пользователей.\nМожем повторить</string>
+    <string name="details">Детали</string>
+    <string name="users_count">Количество пользователей</string>
+    <string name="night_mode">Ночной режим</string>
+    <string name="refresh">Обновить</string>
+    <string name="settings">Настройки</string>
+    <string name="users">Пользователи</string>
+</resources>

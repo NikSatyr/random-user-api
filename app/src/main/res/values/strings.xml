@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Random User</string>
+    <string name="app_name" translatable="false">Random User</string>
     <string name="retry">Retry</string>
     <string name="users_loading_error">Failed to load users.\nWould you like to retry?</string>
     <string name="details">Details</string>
