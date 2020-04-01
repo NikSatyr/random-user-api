@@ -15,8 +15,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 @ExperimentalCoroutinesApi
@@ -41,16 +39,9 @@ class RemoteUserRepositoryTest {
     @Before
     fun before() {
         Dispatchers.setMain(testDispatcher)
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://randomuser.me/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        mockApi = retrofit.create(RandomUserApi::class.java)
         mockApi = mock {
             onBlocking { getUsers(any()) } doReturn Response.success(
-                UsersResponseDto(
-                    listOf(mockUser)
-                )
+                UsersResponseDto(listOf(mockUser))
             )
         }
         remoteUserRepository = RemoteUserRepository(mockApi)
