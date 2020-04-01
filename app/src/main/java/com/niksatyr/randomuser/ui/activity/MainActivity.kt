@@ -17,6 +17,7 @@ import com.niksatyr.randomuser.repo.RemoteUserRepository
 import com.niksatyr.randomuser.util.*
 import com.niksatyr.randomuser.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -25,12 +26,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var userAdapter: UserAdapter
 
     private val viewModel: MainViewModel by viewModels {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://randomuser.me/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val userApi = retrofit.create(RandomUserApi::class.java)
-        val usersRepo = RemoteUserRepository(userApi)
+        val usersRepo = RemoteUserRepository(createUserApi())
         MainViewModel.Factory(usersRepo, LocalSettingsRepository(this))
     }
 
@@ -76,10 +72,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun setupRecyclerView() {
         userAdapter = UserAdapter(this@MainActivity, object : UserAdapter.OnUserSelectedListener {
-                override fun onUserSelected(user: User) {
-                    openUserDetails(user)
-                }
-            })
+            override fun onUserSelected(user: User) {
+                openUserDetails(user)
+            }
+        })
         rvUsers.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = userAdapter
@@ -115,6 +111,26 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val intent = Intent(this, DetailsActivity::class.java)
             .putExtra(DetailsActivity.KEY_USER, user)
         startActivity(intent)
+    }
+
+    private fun createUserApi(): RandomUserApi {
+        val client = OkHttpClient.Builder()
+            /* We won't need metadata about version etc, hence adding noinfo param as per
+             * https://randomuser.me/documentation#misc
+             */
+            .addInterceptor {
+                val request = it.request()
+                val newUrl = request.url().newBuilder()
+                    .addQueryParameter("noinfo", null).build()
+                it.proceed(request.newBuilder().url(newUrl).build())
+            }
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://randomuser.me/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(RandomUserApi::class.java)
     }
 
 }
