@@ -9,7 +9,7 @@
         android:singleLine="true"
         android:title="@string/users_count"
         app:iconSpaceReserved="false"
-        app:useSimpleSummaryProvider="true" />
+        android:summary="@string/users_range" />
 
     <SwitchPreference
         android:defaultValue="false"
