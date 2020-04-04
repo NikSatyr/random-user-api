@@ -6,7 +6,7 @@ import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.niksatyr.randomuser.R
-import com.niksatyr.randomuser.util.App
+import com.niksatyr.randomuser.App
 import com.niksatyr.randomuser.util.RangeFilter
 
 class SettingsFragment : PreferenceFragmentCompat() {

@@ -1,4 +1,4 @@
-package com.niksatyr.randomuser.util
+package com.niksatyr.randomuser
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
