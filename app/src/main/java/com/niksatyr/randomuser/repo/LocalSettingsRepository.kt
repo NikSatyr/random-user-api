@@ -5,6 +5,8 @@ import androidx.preference.PreferenceManager
 
 class LocalSettingsRepository(context: Context) : SettingsRepository {
 
+    private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+
     override fun isNightModeEnabled(): Boolean {
         return preferences.getBoolean(PREFERENCE_NIGHT_MODE_KEY, DEFAULT_NIGHT_MODE)
     }
@@ -13,8 +15,6 @@ class LocalSettingsRepository(context: Context) : SettingsRepository {
         return preferences.getString(PREFERENCE_FETCHED_USERS_COUNT_KEY, DEFAULT_USERS_COUNT)?.toInt()
             ?: throw IllegalStateException("Failed to load users count from preferences")
     }
-
-    private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     companion object {
         private const val PREFERENCE_NIGHT_MODE_KEY = "pref_night_mode"

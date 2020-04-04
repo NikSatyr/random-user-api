@@ -20,6 +20,10 @@ class UserAdapter(
     private var users: List<User> = Collections.emptyList()
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
+    private val inflater = LayoutInflater.from(context)
+
+    private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+
     fun setUsers(users: List<User>) {
         this.users = users
         notifyDataSetChanged()
@@ -54,9 +58,5 @@ class UserAdapter(
     interface OnUserSelectedListener {
         fun onUserSelected(user: User)
     }
-
-    private val inflater = LayoutInflater.from(context)
-
-    private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
 }

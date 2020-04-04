@@ -18,6 +18,10 @@ class MainViewModel(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        state.postValue(Failed(throwable.message))
+    }
+
     val usersLiveData = MutableLiveData<List<User>>()
 
     val state = MutableLiveData<State>()
@@ -48,10 +52,6 @@ class MainViewModel(
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return MainViewModel(userRepository, settingsRepository) as T
         }
-    }
-
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        state.postValue(Failed(throwable.message))
     }
 
 }

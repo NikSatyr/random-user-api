@@ -15,6 +15,10 @@ import java.util.*
 
 class DetailsActivity : ChildActivity(R.layout.activity_details) {
 
+    private val viewModel: DetailsViewModel by viewModels()
+
+    private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.user.observe(this, Observer {
@@ -26,10 +30,6 @@ class DetailsActivity : ChildActivity(R.layout.activity_details) {
             viewModel.setUser(user)
         }
     }
-
-    private val viewModel: DetailsViewModel by viewModels()
-
-    private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
     private fun setupListeners(user: User) {
         txtDetailsEmail.setOnClickListener {
