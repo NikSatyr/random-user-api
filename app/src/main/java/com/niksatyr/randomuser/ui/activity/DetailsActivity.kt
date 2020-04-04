@@ -21,9 +21,11 @@ class DetailsActivity : ChildActivity(R.layout.activity_details) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModel.user.observe(this, Observer {
             displayUserDetails(it)
         })
+
         if (savedInstanceState == null) {
             val user: User = intent?.extras?.getParcelable(KEY_USER)
                 ?: throw IllegalArgumentException("This activity requires a user object to be passed")
@@ -42,12 +44,14 @@ class DetailsActivity : ChildActivity(R.layout.activity_details) {
 
     private fun displayUserDetails(user: User) {
         val fullBirthdayInfo = "${dateFormat.format(user.birthday)} (${user.age})"
+
         Picasso.get().load(user.largePhotoUrl).into(imgDetailsPhoto)
         txtDetailsName.text = user.fullName
         txtDetailsBirthday.text = fullBirthdayInfo
         txtDetailsEmail.text = user.email
         txtDetailsPhone.text = user.phone
         txtDetailsAddress.text = user.address
+
         setupListeners(user)
     }
 

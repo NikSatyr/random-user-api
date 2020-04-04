@@ -38,10 +38,12 @@ class UserAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = users[position]
         val fullBirthdayInfo = "${dateFormat.format(user.birthday)} (${user.age})"
+
         holder.apply {
             Picasso.get().load(user.largePhotoUrl).into(thumbnailPhoto)
             txtName.text = user.fullName
             txtBirthday.text = fullBirthdayInfo
+
             cardView.setOnClickListener {
                 onUserSelectedListener?.onUserSelected(users[position])
             }

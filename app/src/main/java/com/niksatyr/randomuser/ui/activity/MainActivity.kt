@@ -33,9 +33,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRecyclerView()
+
         viewModel.state.observe(this, androidx.lifecycle.Observer {
             displayState(it)
         })
+
         btnRetry.setOnClickListener {
             loadUsers()
         }
@@ -76,10 +78,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 openUserDetails(user)
             }
         })
+
         rvUsers.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = userAdapter
         }
+
         viewModel.usersLiveData.observe(this, androidx.lifecycle.Observer {
             userAdapter.setUsers(it)
         })
@@ -122,11 +126,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 it.proceed(request.newBuilder().url(newUrl).build())
             }
             .build()
+
         val retrofit = Retrofit.Builder()
             .baseUrl("https://randomuser.me/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
+
         return retrofit.create(RandomUserApi::class.java)
     }
 
