@@ -115,9 +115,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun createUserApi(): RandomUserApi {
         val client = OkHttpClient.Builder()
-            /* We won't need metadata about version etc, hence adding noinfo param as per
-             * https://randomuser.me/documentation#misc
-             */
             .addInterceptor {
                 val request = it.request()
                 val newUrl = request.url().newBuilder()
