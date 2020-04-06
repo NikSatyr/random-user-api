@@ -16,7 +16,7 @@ class RepositoryModule {
 
         private const val BASE_URL = "https://randomuser.me/"
 
-        val repositoryModule = module {
+        val module = module {
             single<SettingsRepository> { LocalSettingsRepository(get()) }
 
             single<UserRepository> { RemoteUserRepository(get()) }

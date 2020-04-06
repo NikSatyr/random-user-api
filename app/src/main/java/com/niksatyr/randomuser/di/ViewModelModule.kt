@@ -9,7 +9,7 @@ class ViewModelModule {
 
     companion object {
 
-        val viewModelModule = module {
+        val module = module {
             viewModel { MainViewModel(get(), get()) }
             viewModel { DetailsViewModel() }
         }

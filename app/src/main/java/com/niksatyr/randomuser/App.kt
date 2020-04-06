@@ -16,7 +16,7 @@ class App : Application() {
         setNightMode(settingsRepository.isNightModeEnabled())
         startKoin {
             androidContext(this@App)
-            modules(listOf(RepositoryModule.repositoryModule, ViewModelModule.viewModelModule))
+            modules(listOf(RepositoryModule.module, ViewModelModule.module))
         }
     }
 
