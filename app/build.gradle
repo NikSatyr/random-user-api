@@ -48,6 +48,9 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.preference:preference:1.1.0'
 
+    implementation "org.koin:koin-android:2.1.5"
+    implementation "org.koin:koin-android-viewmodel:2.1.5"
+
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.google.code.gson:gson:2.8.6'
