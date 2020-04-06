@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.niksatyr.randomuser.R
 import com.niksatyr.randomuser.adapter.UserAdapter
 import com.niksatyr.randomuser.model.User
-import com.niksatyr.randomuser.repo.LocalSettingsRepository
-import com.niksatyr.randomuser.repo.RemoteUserRepository
+import com.niksatyr.randomuser.repo.SettingsRepository
+import com.niksatyr.randomuser.repo.UserRepository
 import com.niksatyr.randomuser.util.*
 import com.niksatyr.randomuser.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private lateinit var userAdapter: UserAdapter
 
     private val viewModel: MainViewModel by viewModels {
-        val usersRepo: RemoteUserRepository = get()
-        val settingsRepo: LocalSettingsRepository = get()
+        val usersRepo: UserRepository = get()
+        val settingsRepo: SettingsRepository = get()
         MainViewModel.Factory(usersRepo, settingsRepo)
     }
 

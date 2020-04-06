@@ -3,6 +3,8 @@ package com.niksatyr.randomuser.di
 import com.niksatyr.randomuser.api.RandomUserApi
 import com.niksatyr.randomuser.repo.LocalSettingsRepository
 import com.niksatyr.randomuser.repo.RemoteUserRepository
+import com.niksatyr.randomuser.repo.SettingsRepository
+import com.niksatyr.randomuser.repo.UserRepository
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -15,8 +17,8 @@ class RepositoryModule {
         private const val BASE_URL = "https://randomuser.me/"
 
         val repositoryModule = module {
-            single { LocalSettingsRepository(get()) }
-            single { RemoteUserRepository(get()) }
+            single<SettingsRepository> { LocalSettingsRepository(get()) }
+            single<UserRepository> { RemoteUserRepository(get()) }
             single {
                 Retrofit.Builder()
                     .baseUrl(BASE_URL)
