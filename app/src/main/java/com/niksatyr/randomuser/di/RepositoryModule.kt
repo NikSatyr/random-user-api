@@ -18,7 +18,9 @@ class RepositoryModule {
 
         val repositoryModule = module {
             single<SettingsRepository> { LocalSettingsRepository(get()) }
+
             single<UserRepository> { RemoteUserRepository(get()) }
+
             single {
                 Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -26,6 +28,7 @@ class RepositoryModule {
                     .client(get())
                     .build()
             }
+
             single {
                 OkHttpClient.Builder()
                     .addInterceptor {
@@ -36,6 +39,7 @@ class RepositoryModule {
                     }
                     .build()
             }
+
             single {
                 val retrofit: Retrofit = get()
                 retrofit.create(RandomUserApi::class.java)
