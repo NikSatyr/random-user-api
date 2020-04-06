@@ -2,8 +2,9 @@ package com.niksatyr.randomuser
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.niksatyr.randomuser.di.RepositoryModule
-import com.niksatyr.randomuser.di.ViewModelModule
+import com.niksatyr.randomuser.di.repositoryModule
+import com.niksatyr.randomuser.di.retrofitModule
+import com.niksatyr.randomuser.di.viewModelModule
 import com.niksatyr.randomuser.repo.LocalSettingsRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -16,7 +17,7 @@ class App : Application() {
         setNightMode(settingsRepository.isNightModeEnabled())
         startKoin {
             androidContext(this@App)
-            modules(listOf(RepositoryModule.module, ViewModelModule.module))
+            modules(listOf(viewModelModule, repositoryModule, retrofitModule))
         }
     }
 

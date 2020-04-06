@@ -5,15 +5,7 @@ import com.niksatyr.randomuser.viewmodel.MainViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-class ViewModelModule {
-
-    companion object {
-
-        val module = module {
-            viewModel { MainViewModel(get(), get()) }
-            viewModel { DetailsViewModel() }
-        }
-
-    }
-
+val viewModelModule = module {
+    viewModel { MainViewModel(get(), get()) }
+    viewModel { DetailsViewModel() }
 }
