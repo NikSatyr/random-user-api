@@ -2,7 +2,10 @@ package com.niksatyr.randomuser
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.niksatyr.randomuser.di.RepositoryModule
 import com.niksatyr.randomuser.repo.LocalSettingsRepository
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class App : Application() {
 
@@ -10,6 +13,10 @@ class App : Application() {
         super.onCreate()
         val settingsRepository = LocalSettingsRepository(this)
         setNightMode(settingsRepository.isNightModeEnabled())
+        startKoin {
+            androidContext(this@App)
+            modules(listOf(RepositoryModule.repositoryModule))
+        }
     }
 
     fun setNightMode(nightModeEnabled: Boolean) {

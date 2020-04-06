@@ -10,24 +10,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.niksatyr.randomuser.R
 import com.niksatyr.randomuser.adapter.UserAdapter
-import com.niksatyr.randomuser.api.RandomUserApi
 import com.niksatyr.randomuser.model.User
 import com.niksatyr.randomuser.repo.LocalSettingsRepository
 import com.niksatyr.randomuser.repo.RemoteUserRepository
 import com.niksatyr.randomuser.util.*
 import com.niksatyr.randomuser.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.android.ext.android.get
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private lateinit var userAdapter: UserAdapter
 
     private val viewModel: MainViewModel by viewModels {
-        val usersRepo = RemoteUserRepository(createUserApi())
-        MainViewModel.Factory(usersRepo, LocalSettingsRepository(this))
+        val usersRepo: RemoteUserRepository = get()
+        val settingsRepo: LocalSettingsRepository = get()
+        MainViewModel.Factory(usersRepo, settingsRepo)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,25 +113,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val intent = Intent(this, DetailsActivity::class.java)
             .putExtra(DetailsActivity.KEY_USER, user)
         startActivity(intent)
-    }
-
-    private fun createUserApi(): RandomUserApi {
-        val client = OkHttpClient.Builder()
-            .addInterceptor {
-                val request = it.request()
-                val newUrl = request.url().newBuilder()
-                    .addQueryParameter("noinfo", null).build()
-                it.proceed(request.newBuilder().url(newUrl).build())
-            }
-            .build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://randomuser.me/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-
-        return retrofit.create(RandomUserApi::class.java)
     }
 
 }
