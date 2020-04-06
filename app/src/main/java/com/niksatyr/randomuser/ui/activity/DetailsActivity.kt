@@ -3,7 +3,6 @@ package com.niksatyr.randomuser.ui.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.niksatyr.randomuser.R
 import com.niksatyr.randomuser.model.User
@@ -12,10 +11,11 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
 import java.text.SimpleDateFormat
 import java.util.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailsActivity : ChildActivity(R.layout.activity_details) {
 
-    private val viewModel: DetailsViewModel by viewModels()
+    private val viewModel: DetailsViewModel by viewModel()
 
     private val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
 
