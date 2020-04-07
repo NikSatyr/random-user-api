@@ -1,16 +1,15 @@
 package com.niksatyr.randomuser.di
 
+import com.niksatyr.randomuser.AppConstants
 import com.niksatyr.randomuser.api.RandomUserApi
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://randomuser.me/"
-
 val retrofitModule = module {
     single { provideOkHttpClient() }
-    single { provideRetrofit(get(), BASE_URL) }
+    single { provideRetrofit(get(), AppConstants.BASE_URL) }
     single { provideWebService<RandomUserApi>(get()) }
 }
 
