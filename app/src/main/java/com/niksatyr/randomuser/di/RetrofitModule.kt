@@ -9,27 +9,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 private const val BASE_URL = "https://randomuser.me/"
 
 val retrofitModule = module {
-    single {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(get())
-            .build()
-    }
+    single { provideOkHttpClient() }
+    single { provideRetrofit(get(), BASE_URL) }
+    single { provideWebService<RandomUserApi>(get()) }
+}
 
-    single {
-        OkHttpClient.Builder()
-            .addInterceptor {
-                val request = it.request()
-                val newUrl = request.url().newBuilder()
-                    .addQueryParameter("noinfo", null).build()
-                it.proceed(request.newBuilder().url(newUrl).build())
-            }
-            .build()
+private fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+    .addInterceptor {
+        val request = it.request()
+        val newUrl = request.url().newBuilder()
+            .addQueryParameter("noinfo", null).build()
+        it.proceed(request.newBuilder().url(newUrl).build())
     }
+    .build()
 
-    single {
-        val retrofit: Retrofit = get()
-        retrofit.create(RandomUserApi::class.java)
-    }
+private fun provideRetrofit(client: OkHttpClient, baseUrl: String): Retrofit = Retrofit.Builder()
+    .baseUrl(baseUrl)
+    .addConverterFactory(GsonConverterFactory.create())
+    .client(client)
+    .build()
+
+private inline fun <reified T> provideWebService(retrofit: Retrofit): T {
+    return retrofit.create(T::class.java)
 }
