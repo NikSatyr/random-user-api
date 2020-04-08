@@ -3,7 +3,7 @@ package com.niksatyr.randomuser.repo
 import com.niksatyr.randomuser.api.RandomUserApi
 import com.niksatyr.randomuser.model.User
 
-class RemoteUserRepository(private val userApi: RandomUserApi) : UserRepository {
+class UserRepositoryImpl(private val userApi: RandomUserApi) : UserRepository {
 
     override suspend fun getUsers(count: Int): List<User> {
         if (count < 1) {

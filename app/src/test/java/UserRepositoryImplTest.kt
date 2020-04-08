@@ -6,7 +6,7 @@ import com.niksatyr.randomuser.api.RandomUserApi
 import com.niksatyr.randomuser.dto.UserDto
 import com.niksatyr.randomuser.dto.UsersResponseDto
 import com.niksatyr.randomuser.model.User
-import com.niksatyr.randomuser.repo.RemoteUserRepository
+import com.niksatyr.randomuser.repo.UserRepositoryImpl
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,12 +18,12 @@ import retrofit2.Response
 import java.util.*
 
 @ExperimentalCoroutinesApi
-class RemoteUserRepositoryTest {
+class UserRepositoryImplTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     private val testScope = TestCoroutineScope(testDispatcher)
 
-    private lateinit var remoteUserRepository: RemoteUserRepository
+    private lateinit var userRepositoryImpl: UserRepositoryImpl
 
     private lateinit var mockApi: RandomUserApi
 
@@ -44,7 +44,7 @@ class RemoteUserRepositoryTest {
                 UsersResponseDto(listOf(mockUser))
             )
         }
-        remoteUserRepository = RemoteUserRepository(mockApi)
+        userRepositoryImpl = UserRepositoryImpl(mockApi)
     }
 
     @After
@@ -55,14 +55,14 @@ class RemoteUserRepositoryTest {
 
     @Test
     fun test_getUsers() = testScope.runBlockingTest {
-        val users = remoteUserRepository.getUsers(1)
+        val users = userRepositoryImpl.getUsers(1)
         val expected: List<User> = listOf(mockUser).map { User.Factory.create(it) }
         assertEquals(expected, users)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun test_getUsers_negativeCount() = testScope.runBlockingTest {
-        val users = remoteUserRepository.getUsers(-2)
+        val users = userRepositoryImpl.getUsers(-2)
     }
 
 }

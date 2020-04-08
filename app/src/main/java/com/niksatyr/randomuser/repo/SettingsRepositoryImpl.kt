@@ -3,7 +3,7 @@ package com.niksatyr.randomuser.repo
 import android.content.Context
 import androidx.preference.PreferenceManager
 
-class LocalSettingsRepository(context: Context) : SettingsRepository {
+class SettingsRepositoryImpl(context: Context) : SettingsRepository {
 
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
