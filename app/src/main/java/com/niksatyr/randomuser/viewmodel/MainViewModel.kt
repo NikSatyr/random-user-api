@@ -3,6 +3,7 @@ package com.niksatyr.randomuser.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.niksatyr.randomuser.model.User
 import com.niksatyr.randomuser.repo.SettingsRepository
 import com.niksatyr.randomuser.repo.UserRepository
@@ -29,7 +30,7 @@ class MainViewModel(
     fun loadUsers(count: Int) {
         state.value = Loading
 
-        val scope = CoroutineScope(Job())
+        val scope = viewModelScope + Job()
 
         scope.launch(exceptionHandler) {
             launch(Dispatchers.IO) { // Inner scope needed to handle exceptions
