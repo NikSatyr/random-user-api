@@ -2,7 +2,6 @@ package com.niksatyr.randomuser.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.niksatyr.randomuser.model.User
 import com.niksatyr.randomuser.repo.SettingsRepository
@@ -47,14 +46,5 @@ class MainViewModel(
     }
 
     fun isLoadingInProgress() = state.value == Loading
-
-    class Factory(
-        private val userRepository: UserRepository,
-        private val settingsRepository: SettingsRepository
-    ) : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return MainViewModel(userRepository, settingsRepository) as T
-        }
-    }
 
 }
