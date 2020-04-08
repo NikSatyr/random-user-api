@@ -16,7 +16,7 @@ import java.util.*
 
 class UserAdapter(
     context: Context,
-    var onUserSelectedListener: OnUserSelectedListener? = null,
+    var onUserSelectedListener: ((User) -> Unit)? = null,
     private var users: List<User> = Collections.emptyList()
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
@@ -45,7 +45,7 @@ class UserAdapter(
             txtBirthday.text = fullBirthdayInfo
 
             cardView.setOnClickListener {
-                onUserSelectedListener?.onUserSelected(users[position])
+                onUserSelectedListener?.invoke(users[position])
             }
         }
     }
@@ -55,10 +55,6 @@ class UserAdapter(
         val txtBirthday: TextView = itemView.findViewById(R.id.txtBirthday)
         val thumbnailPhoto: CircleImageView = itemView.findViewById(R.id.thumbnail)
         val cardView: CardView = itemView.findViewById(R.id.cardViewUser)
-    }
-
-    interface OnUserSelectedListener {
-        fun onUserSelected(user: User)
     }
 
 }

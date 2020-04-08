@@ -64,10 +64,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun setupRecyclerView() {
-        userAdapter = UserAdapter(this@MainActivity, object : UserAdapter.OnUserSelectedListener {
-            override fun onUserSelected(user: User) {
-                openUserDetails(user)
-            }
+        userAdapter = UserAdapter(this@MainActivity, {
+            openUserDetails(it)
         })
 
         rvUsers.apply {
